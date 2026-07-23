@@ -421,21 +421,21 @@ function getDayState(n){
   return state.days[n];
 }
 
-async function loadState(){
+function loadState(){
   const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
   state.theme = prefersLight ? 'light' : 'dark';
   try{
-    const res = await window.storage.get(STORAGE_KEY, false);
-    if(res && res.value){
-      const parsed = JSON.parse(res.value);
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const parsed = JSON.parse(raw);
       state = Object.assign({currentDay:1, days:{}, theme: state.theme}, parsed);
     }
   }catch(e){ /* no saved state yet */ }
   applyTheme();
   render();
 }
-async function saveState(){
-  try{ await window.storage.set(STORAGE_KEY, JSON.stringify(state), false); }
+function saveState(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
   catch(e){ console.error("save failed", e); }
 }
 
