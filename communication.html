@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#14171D">
+<title>Founder Comms Log — Pinova</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14171D;
+    --ink-rgb:20,23,29;
+    --ink-2:#1B1F27;
+    --ink-3:#232833;
+    --paper:#EDEAE0;
+    --paper-dim:#9BA0AC;
+    --paper-faint:#5B606C;
+    --red:#C4432E;
+    --red-dim:#7A3128;
+    --brass:#C9A24B;
+    --line:#2A2F3A;
+    --shadow: none;
+    --on-accent:#14171D;
+  }
+  html[data-theme="light"]{
+    --ink:#F4F1EA;
+    --ink-rgb:244,241,234;
+    --ink-2:#FFFFFF;
+    --ink-3:#EFEBE1;
+    --paper:#1E2027;
+    --paper-dim:#5B5F6B;
+    --paper-faint:#8B8F98;
+    --red:#B03A26;
+    --red-dim:#F3D9D2;
+    --brass:#A67F2E;
+    --line:#E2DDCF;
+    --shadow: 0 1px 3px rgba(30,32,39,0.06);
+    --on-accent:#14171D;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;background:var(--ink); transition:background .2s;}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    color:var(--paper);
+    min-height:100vh;
+    padding-bottom:48px;
+  }
+  ::selection{background:var(--brass); color:var(--on-accent);}
+  a{color:inherit;}
+
+  .wrap{
+    max-width:480px;
+    margin:0 auto;
+    padding:0 18px;
+  }
+
+  /* HEADER */
+  header{
+    padding:22px 18px 14px;
+    border-bottom:1px solid var(--line);
+    position:sticky; top:0; z-index:20;
+    background:rgba(var(--ink-rgb),0.96);
+    backdrop-filter:blur(6px);
+  }
+  .brand{
+    display:flex; align-items:baseline; justify-content:space-between;
+    max-width:480px; margin:0 auto;
+  }
+  .brand-name{
+    font-family:'Oswald',sans-serif; font-weight:700; letter-spacing:0.06em;
+    font-size:15px; text-transform:uppercase; color:var(--paper);
+  }
+  .brand-name span{color:var(--red);}
+  .brand-sub{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--paper-faint);
+    letter-spacing:0.04em;
+  }
+
+  .daynav{
+    max-width:480px; margin:14px auto 0;
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+  }
+  .daynav button{
+    width:40px; height:40px; border-radius:50%;
+    border:1px solid var(--line); background:var(--ink-2); color:var(--paper);
+    font-size:18px; display:flex; align-items:center; justify-content:center;
+    cursor:pointer; flex-shrink:0;
+  }
+  .daynav button:active{background:var(--ink-3);}
+  .daynum{
+    font-family:'Oswald',sans-serif; font-weight:700; text-align:center;
+    font-size:26px; letter-spacing:0.03em; text-transform:uppercase;
+  }
+  .daynum small{
+    display:block; font-family:'IBM Plex Mono',monospace; font-weight:400;
+    font-size:11px; color:var(--paper-faint); letter-spacing:0.08em; margin-top:2px;
+  }
+
+  /* PROGRESS STRIP */
+  .strip{
+    display:flex; gap:6px; overflow-x:auto; padding:14px 18px 4px;
+    max-width:480px; margin:0 auto; scrollbar-width:none;
+  }
+  .strip::-webkit-scrollbar{display:none;}
+  .dot{
+    width:11px; height:11px; border-radius:50%; flex-shrink:0;
+    border:1.5px solid var(--paper-faint); background:transparent;
+    cursor:pointer;
+  }
+  .dot.done{background:var(--brass); border-color:var(--brass);}
+  .dot.current{border-color:var(--red); box-shadow:0 0 0 3px rgba(196,67,46,0.22);}
+
+  main{padding-top:18px;}
+
+  .card{
+    background:var(--ink-2); border:1px solid var(--line); border-radius:14px;
+    padding:16px 16px; margin-bottom:14px; box-shadow:var(--shadow);
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--brass); margin-bottom:10px; display:block;
+  }
+
+  .brief-row{
+    display:flex; justify-content:space-between; gap:14px;
+    padding:9px 0; border-bottom:1px solid var(--line); font-size:13.5px;
+  }
+  .brief-row:last-child{border-bottom:none;}
+  .brief-label{color:var(--paper-faint); flex-shrink:0; width:84px; font-size:11.5px; text-transform:uppercase; letter-spacing:0.05em; padding-top:1px;}
+  .brief-val{flex:1; text-align:right; line-height:1.4;}
+
+  /* STEPS */
+  .step{
+    background:var(--ink-2); border:1px solid var(--line); border-radius:14px;
+    padding:14px 14px; margin-bottom:10px; transition:border-color .15s; box-shadow:var(--shadow);
+  }
+  .step.active{border-color:var(--red);}
+  .step.checked{border-color:var(--brass);}
+  .step-top{display:flex; align-items:flex-start; gap:12px;}
+  .step-num{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--paper-faint);
+    width:16px; flex-shrink:0; padding-top:2px;
+  }
+  .step-body{flex:1; min-width:0;}
+  .step-title{
+    font-family:'Oswald',sans-serif; font-weight:600; font-size:14.5px;
+    text-transform:uppercase; letter-spacing:0.02em; margin-bottom:4px;
+  }
+  .step-desc{font-size:12.5px; color:var(--paper-dim); line-height:1.5;}
+  .checkbox{
+    width:24px; height:24px; border-radius:6px; border:1.5px solid var(--paper-faint);
+    flex-shrink:0; display:flex; align-items:center; justify-content:center;
+    cursor:pointer; font-size:14px;
+  }
+  .checkbox.on{background:var(--brass); border-color:var(--brass); color:var(--on-accent); font-weight:700;}
+
+  .step-controls{
+    display:flex; align-items:center; gap:10px; margin-top:12px;
+  }
+  .timerbtn{
+    font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:500;
+    background:var(--ink-3); border:1px solid var(--line); color:var(--paper);
+    border-radius:8px; padding:8px 12px; cursor:pointer; letter-spacing:0.02em;
+    display:flex; align-items:center; gap:8px;
+  }
+  .timerbtn.running{border-color:var(--red); color:var(--red);}
+  .bar{flex:1; height:5px; background:var(--ink-3); border-radius:3px; overflow:hidden;}
+  .bar-fill{height:100%; width:0%; background:var(--brass); transition:width 1s linear;}
+  .step.active .bar-fill{background:var(--red);}
+
+  /* HABITS */
+  .habit-row{display:flex; align-items:center; justify-content:space-between; padding:10px 0;}
+  .habit-row + .habit-row{border-top:1px solid var(--line);}
+  .habit-label{font-size:13px; line-height:1.4; padding-right:12px;}
+  .yn{display:flex; gap:6px;}
+  .yn button{
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; padding:7px 12px;
+    border-radius:7px; border:1px solid var(--line); background:var(--ink-3); color:var(--paper-dim);
+    cursor:pointer;
+  }
+  .yn button.sel-yes{background:var(--brass); border-color:var(--brass); color:var(--on-accent); font-weight:600;}
+  .yn button.sel-no{background:var(--red-dim); border-color:var(--red); color:var(--paper); font-weight:600;}
+
+  .fillerlog{display:flex; align-items:center; gap:10px;}
+  .fillerlog input{
+    width:56px; font-family:'IBM Plex Mono',monospace; font-size:15px; text-align:center;
+    background:var(--ink-3); border:1px solid var(--line); color:var(--paper);
+    border-radius:8px; padding:8px 4px;
+  }
+  .fillerlog input:focus{outline:2px solid var(--brass); outline-offset:1px;}
+  .sparkline{display:flex; align-items:flex-end; gap:3px; height:26px; margin-left:auto;}
+  .spark-bar{width:5px; background:var(--paper-faint); border-radius:2px 2px 0 0; min-height:2px;}
+  .spark-bar.today{background:var(--brass);}
+
+  /* RULES BUTTON */
+  .refbtn{
+    width:100%; text-align:left; background:var(--ink-2); border:1px solid var(--line);
+    border-radius:14px; padding:14px 16px; color:var(--paper); font-family:'Inter';
+    font-size:13.5px; cursor:pointer; display:flex; justify-content:space-between; align-items:center;
+    margin-bottom:14px; box-shadow:var(--shadow);
+  }
+  .refbtn b{font-family:'Oswald',sans-serif; text-transform:uppercase; font-weight:600; letter-spacing:0.03em; font-size:13px;}
+
+  /* MODAL */
+  .modal-back{
+    position:fixed; inset:0; background:rgba(10,11,14,0.72); z-index:50;
+    display:none; align-items:flex-end; justify-content:center;
+  }
+  .modal-back.open{display:flex;}
+  .modal{
+    background:var(--ink-2); border-top:1px solid var(--line); border-radius:18px 18px 0 0;
+    max-width:480px; width:100%; max-height:82vh; overflow-y:auto; padding:20px 20px 30px;
+  }
+  .modal h2{
+    font-family:'Oswald',sans-serif; text-transform:uppercase; font-size:16px;
+    letter-spacing:0.03em; margin:0 0 14px; display:flex; justify-content:space-between; align-items:center;
+  }
+  .modal h2 button{
+    background:none; border:none; color:var(--paper-faint); font-size:20px; cursor:pointer; padding:4px;
+  }
+  .modal h3{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase;
+    letter-spacing:0.1em; color:var(--brass); margin:18px 0 8px;
+  }
+  .modal h3:first-of-type{margin-top:0;}
+  .modal p, .modal li{font-size:13.5px; line-height:1.6; color:var(--paper-dim);}
+  .modal ol, .modal ul{margin:0; padding-left:20px;}
+  .modal li{margin-bottom:6px;}
+
+  footer{
+    max-width:480px; margin:20px auto 0; padding:0 18px;
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--paper-faint);
+    text-align:center; line-height:1.6;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;}
+  }
+  @media (min-width:520px){
+    body{background:linear-gradient(180deg, var(--ink), var(--ink-3));}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-name">FOUNDER <span>COMMS</span> LOG</div>
+    <button id="themeBtn" aria-label="Toggle light/dark mode" style="background:var(--ink-2); border:1px solid var(--line); border-radius:8px; padding:5px 9px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--paper-dim); cursor:pointer; letter-spacing:0.04em;">☾ DARK</button>
+  </div>
+  <div class="brand" style="margin-top:2px;">
+    <div class="brand-sub">PINOVA · 30 DAYS</div>
+  </div>
+  <div class="daynav">
+    <button id="prevBtn" aria-label="Previous day">‹</button>
+    <div class="daynum">DAY <span id="dayNumTxt">01</span><small id="weekTxt">WEEK 1 · CLARITY</small></div>
+    <button id="nextBtn" aria-label="Next day">›</button>
+  </div>
+</header>
+
+<div class="strip" id="strip"></div>
+
+<div class="wrap">
+<main>
+
+  <button class="refbtn" id="openRef">
+    <b>Rules &amp; Reference</b>
+    <span>›</span>
+  </button>
+
+  <div class="card">
+    <span class="eyebrow">Today's Brief</span>
+    <div class="brief-row"><div class="brief-label">Topic</div><div class="brief-val" id="briefTopic"></div></div>
+    <div class="brief-row"><div class="brief-label">Reading</div><div class="brief-val" id="briefReading"></div></div>
+    <div class="brief-row"><div class="brief-label">Replay</div><div class="brief-val" id="briefSpeaker"></div></div>
+    <div class="brief-row"><div class="brief-label">Sales Q</div><div class="brief-val" id="briefQuestion"></div></div>
+  </div>
+
+  <span class="eyebrow" style="margin-left:2px;">Protocol · 60 min</span>
+  <div id="steps" style="margin-top:8px;"></div>
+
+  <div class="card">
+    <span class="eyebrow">Additional Habits</span>
+    <div class="habit-row">
+      <div class="habit-label">Said "so what I'm hearing is ___" before giving my opinion today?</div>
+      <div class="yn">
+        <button data-val="yes" id="listenYes">YES</button>
+        <button data-val="no" id="listenNo">NO</button>
+      </div>
+    </div>
+    <div class="habit-row">
+      <div class="habit-label">Filler word count (from Step 1)</div>
+      <div class="fillerlog">
+        <input type="number" min="0" inputmode="numeric" id="fillerInput" placeholder="—">
+        <div class="sparkline" id="sparkline"></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  PAUSE 2 SEC · ONE IDEA PER SENTENCE · CUT ANYTHING OVER 12 WORDS<br>
+  Progress saved automatically on this device.
+</footer>
+</div>
+
+<div class="modal-back" id="modalBack">
+  <div class="modal">
+    <h2>Rules &amp; Reference <button id="closeRef">✕</button></h2>
+
+    <h3>Every real conversation</h3>
+    <ol>
+      <li>Pause 2 seconds before answering.</li>
+      <li>One idea per sentence.</li>
+      <li>Every sentence answers: what happened / why it matters / what's next.</li>
+      <li>Split any sentence over 12 words into two.</li>
+    </ol>
+
+    <h3>Trust sequencing (from Day 22)</h3>
+    <p>Before any sales or investor call, write one line: "What does this person need to hear first to trust me, before they hear the rest?" Open with that line. Say the honest weak points after, not before.</p>
+
+    <h3>Weekly focus</h3>
+    <ul>
+      <li><b>Days 1–7 — Clarity:</b> speak slowly, cut filler words.</li>
+      <li><b>Days 8–14 — Structure:</b> Problem → Reason → Solution.</li>
+      <li><b>Days 15–21 — Trust:</b> questions and listening over talking.</li>
+      <li><b>Days 22–30 — Persuasion:</b> objections, sales, negotiation.</li>
+    </ul>
+
+    <h3>Day 30 output</h3>
+    <p>Compare your Day 30 recording word-for-word against Day 1 and Day 2. Write down exactly 3 differences you can hear.</p>
+
+    <h3>After Day 30 — keep only these 3</h3>
+    <ol>
+      <li>2-second pause before answering.</li>
+      <li>Filler word count log — keep logging weekly.</li>
+      <li>"So what I'm hearing is ___" once per sales conversation minimum.</li>
+    </ol>
+  </div>
+</div>
+
+<script>
+const DAYS = [
+{t:"Explain what AI is", b:"Made to Stick", p:"1–12", s:"Steve Jobs", q:"\u201cWhat does your company do?\u201d (30 sec)"},
+{t:"Explain Pinova in 30 seconds", b:"Made to Stick", p:"13–24", s:"Jensen Huang", q:"\u201cWhy should I trust you?\u201d (60 sec)"},
+{t:"Explain what cricket is", b:"Made to Stick", p:"25–36", s:"Satya Nadella", q:"\u201cWhy shouldn't I stay with my current solution?\u201d (90 sec)"},
+{t:"Explain Pinova in 15 seconds", b:"Made to Stick", p:"37–48", s:"Alex Hormozi", q:"\u201cTell me about yourself.\u201d (60 sec)"},
+{t:"Explain why it rains", b:"Made to Stick", p:"49–60", s:"Warren Buffett", q:"\u201cWhat's your biggest failure?\u201d (60 sec)"},
+{t:"Explain Pinova in one sentence", b:"Made to Stick", p:"61–72", s:"Steve Jobs", q:"\u201cWhat does your company do?\u201d (30 sec)"},
+{t:"Explain how to make pizza", b:"Made to Stick", p:"73–84", s:"Jensen Huang", q:"\u201cWhy should I trust you?\u201d (60 sec)"},
+{t:"Explain Pinova to a 12-year-old", b:"The Pyramid Principle", p:"1–12", s:"Satya Nadella", q:"\u201cWhy shouldn't I stay with my current solution?\u201d (90 sec)"},
+{t:"Explain how a plane flies", b:"The Pyramid Principle", p:"13–24", s:"Alex Hormozi", q:"\u201cTell me about yourself.\u201d (60 sec)"},
+{t:"Explain Pinova to an investor", b:"The Pyramid Principle", p:"25–36", s:"Warren Buffett", q:"\u201cWhat's your biggest failure?\u201d (60 sec)"},
+{t:"Explain why the sky is blue", b:"The Pyramid Principle", p:"37–48", s:"Steve Jobs", q:"\u201cWhat does your company do?\u201d (30 sec)"},
+{t:"Explain Pinova to a luxury real estate agent", b:"The Pyramid Principle", p:"49–60", s:"Jensen Huang", q:"\u201cWhy should I trust you?\u201d (60 sec)"},
+{t:"Explain how coffee is made", b:"The Pyramid Principle", p:"61–72", s:"Satya Nadella", q:"\u201cWhy shouldn't I stay with my current solution?\u201d (90 sec)"},
+{t:"Explain Pinova to your grandmother", b:"The Pyramid Principle", p:"73–84", s:"Alex Hormozi", q:"\u201cTell me about yourself.\u201d (60 sec)"},
+{t:"Explain what a CRM is", b:"Never Split the Difference", p:"1–12", s:"Warren Buffett", q:"\u201cWhat's your biggest failure?\u201d (60 sec)"},
+{t:"Explain how Pinova is different from your closest competitor", b:"Never Split the Difference", p:"13–24", s:"Steve Jobs", q:"\u201cWhat does your company do?\u201d (30 sec)"},
+{t:"Explain how compound interest works", b:"Never Split the Difference", p:"25–36", s:"Jensen Huang", q:"\u201cWhy should I trust you?\u201d (60 sec)"},
+{t:"Explain the last mistake you made in the business", b:"Never Split the Difference", p:"37–48", s:"Satya Nadella", q:"\u201cWhy shouldn't I stay with my current solution?\u201d (90 sec)"},
+{t:"Explain what a \u201clead\u201d means to someone outside real estate", b:"Never Split the Difference", p:"49–60", s:"Alex Hormozi", q:"\u201cTell me about yourself.\u201d (60 sec)"},
+{t:"Explain your last week in 60 seconds", b:"Never Split the Difference", p:"61–72", s:"Warren Buffett", q:"\u201cWhat's your biggest failure?\u201d (60 sec)"},
+{t:"Explain Pinova in 30 seconds — redo Day 2, don't look at it first", b:"Never Split the Difference", p:"73–84", s:"Steve Jobs", q:"\u201cWhat does your company do?\u201d (30 sec)"},
+{t:"Respond to: \u201cYour price is too high\u201d", b:"Influence", p:"1–12", s:"Jensen Huang", q:"\u201cWhy should I trust you?\u201d (60 sec)"},
+{t:"Respond to: \u201cI need to think about it\u201d", b:"Influence", p:"13–24", s:"Satya Nadella", q:"\u201cWhy shouldn't I stay with my current solution?\u201d (90 sec)"},
+{t:"Respond to: \u201cI already use a competitor\u201d", b:"Influence", p:"25–36", s:"Alex Hormozi", q:"\u201cTell me about yourself.\u201d (60 sec)"},
+{t:"Respond to: \u201cNot the right time\u201d", b:"Influence", p:"37–48", s:"Warren Buffett", q:"\u201cWhat's your biggest failure?\u201d (60 sec)"},
+{t:"Respond to: \u201cNot sure this works for luxury listings\u201d", b:"Influence", p:"49–60", s:"Steve Jobs", q:"\u201cWhat does your company do?\u201d (30 sec)"},
+{t:"Explain Pinova to a 12-year-old — redo Day 8, don't look at it first", b:"Influence", p:"61–72", s:"Jensen Huang", q:"\u201cWhy should I trust you?\u201d (60 sec)"},
+{t:"Explain Pinova to an investor — redo Day 10, don't look at it first", b:"Talk Like TED", p:"1–12", s:"Satya Nadella", q:"\u201cWhy shouldn't I stay with my current solution?\u201d (90 sec)"},
+{t:"Explain Pinova to a luxury real estate agent — redo Day 12, don't look at it first", b:"Talk Like TED", p:"13–24", s:"Alex Hormozi", q:"\u201cTell me about yourself.\u201d (60 sec)"},
+{t:"Answer, unprepared, one take: \u201cWhat does Pinova do, and why should a real estate agent care?\u201d (60–90 sec)", b:"Talk Like TED", p:"25–36", s:"Warren Buffett", q:"\u201cWhat's your biggest failure?\u201d (60 sec)"}
+];
+
+const STEPS = [
+ {title:"Read Aloud", desc:"Open today's book to today's pages. Record yourself reading at half speed. Play back once. Count filler words, then log the number below."},
+ {title:"One-Minute Explanation", desc:"Record yourself explaining today's topic out loud. Hard stop at 60 seconds."},
+ {title:"Story Drill", desc:"Record: Situation (1 line) → Problem (1 line) → Action (1–2 lines) → Result (1 line), about yesterday in the business."},
+ {title:"Question Drill", desc:"Write 5 questions about how an agent gets leads today. No statements about Pinova allowed. Read all 5 aloud."},
+ {title:"Sales Replay", desc:"Search YouTube for today's speaker + \u201cinterview.\u201d Pick any 8+ min video. Pause before each answer, say your prediction, unpause, check."},
+ {title:"Reflection", desc:"Write exactly 3 lines: what confused someone today, why, and a rewrite of that sentence under 12 words."}
+];
+
+const WEEKS = [
+  [1,7,"WEEK 1 · CLARITY"],[8,14,"WEEK 2 · STRUCTURE"],
+  [15,21,"WEEK 3 · TRUST"],[22,30,"WEEK 4 · PERSUASION"]
+];
+
+const STORAGE_KEY = "pinova-plan-state";
+let state = { currentDay: 1, days: {}, theme: 'dark' };
+let timers = {}; // in-memory only, per step index
+
+function applyTheme(){
+  const html = document.documentElement;
+  const btn = document.getElementById('themeBtn');
+  if(state.theme === 'light'){
+    html.setAttribute('data-theme','light');
+    btn.textContent = '☀ LIGHT';
+  } else {
+    html.removeAttribute('data-theme');
+    btn.textContent = '☾ DARK';
+  }
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if(meta) meta.setAttribute('content', state.theme === 'light' ? '#F4F1EA' : '#14171D');
+}
+document.getElementById('themeBtn').addEventListener('click', ()=>{
+  state.theme = state.theme === 'light' ? 'dark' : 'light';
+  applyTheme();
+  saveState();
+});
+
+function emptyDayState(){
+  return { steps:[false,false,false,false,false,false], listening:null, filler:null };
+}
+function getDayState(n){
+  if(!state.days[n]) state.days[n] = emptyDayState();
+  return state.days[n];
+}
+
+function loadState(){
+  const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+  state.theme = prefersLight ? 'light' : 'dark';
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const parsed = JSON.parse(raw);
+      state = Object.assign({currentDay:1, days:{}, theme: state.theme}, parsed);
+    }
+  }catch(e){ /* no saved state yet */ }
+  applyTheme();
+  render();
+}
+function saveState(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  catch(e){ console.error("save failed", e); }
+}
+
+function weekLabel(day){
+  for(const [a,b,label] of WEEKS){ if(day>=a && day<=b) return label; }
+  return "";
+}
+
+function render(){
+  const day = state.currentDay;
+  const d = DAYS[day-1];
+  const ds = getDayState(day);
+
+  document.getElementById('dayNumTxt').textContent = String(day).padStart(2,'0');
+  document.getElementById('weekTxt').textContent = weekLabel(day);
+  document.getElementById('briefTopic').textContent = d.t;
+  document.getElementById('briefReading').textContent = d.b + " — pp. " + d.p;
+  document.getElementById('briefSpeaker').textContent = d.s;
+  document.getElementById('briefQuestion').textContent = d.q;
+
+  // steps
+  const stepsEl = document.getElementById('steps');
+  stepsEl.innerHTML = '';
+  STEPS.forEach((st, i) => {
+    const checked = ds.steps[i];
+    const div = document.createElement('div');
+    div.className = 'step' + (checked ? ' checked' : '');
+    div.id = 'step-' + i;
+    div.innerHTML = `
+      <div class="step-top">
+        <div class="step-num">0${i+1}</div>
+        <div class="step-body">
+          <div class="step-title">${st.title}</div>
+          <div class="step-desc">${st.desc}</div>
+          <div class="step-controls">
+            <button class="timerbtn" data-step="${i}">▶ 10:00</button>
+            <div class="bar"><div class="bar-fill" id="bar-${i}"></div></div>
+          </div>
+        </div>
+        <div class="checkbox ${checked?'on':''}" data-step="${i}">${checked?'✓':''}</div>
+      </div>`;
+    stepsEl.appendChild(div);
+  });
+
+  // listening habit
+  document.getElementById('listenYes').className = ds.listening === 'yes' ? 'sel-yes' : '';
+  document.getElementById('listenNo').className = ds.listening === 'no' ? 'sel-no' : '';
+
+  // filler input
+  document.getElementById('fillerInput').value = ds.filler === null ? '' : ds.filler;
+
+  renderSparkline(day);
+  renderStrip();
+
+  document.getElementById('prevBtn').disabled = day <= 1;
+  document.getElementById('nextBtn').disabled = day >= 30;
+}
+
+function renderSparkline(day){
+  const el = document.getElementById('sparkline');
+  el.innerHTML = '';
+  const start = Math.max(1, day-6);
+  let max = 1;
+  for(let n=start;n<=day;n++){
+    const v = state.days[n] ? state.days[n].filler : null;
+    if(v!==null && v>max) max = v;
+  }
+  for(let n=start;n<=day;n++){
+    const v = state.days[n] ? state.days[n].filler : null;
+    const h = v===null ? 2 : Math.max(3, Math.round((v/max)*24));
+    const bar = document.createElement('div');
+    bar.className = 'spark-bar' + (n===day ? ' today' : '');
+    bar.style.height = h + 'px';
+    el.appendChild(bar);
+  }
+}
+
+function renderStrip(){
+  const strip = document.getElementById('strip');
+  strip.innerHTML = '';
+  for(let n=1;n<=30;n++){
+    const ds = state.days[n];
+    const done = ds && ds.steps.every(x=>x);
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (done?' done':'') + (n===state.currentDay?' current':'');
+    dot.title = 'Day ' + n;
+    dot.addEventListener('click', ()=>{ state.currentDay = n; saveState(); render(); scrollToTop(); });
+    strip.appendChild(dot);
+  }
+  const current = strip.children[state.currentDay-1];
+  if(current){
+    const target = current.offsetLeft - (strip.clientWidth/2) + (current.clientWidth/2);
+    strip.scrollTo({ left: Math.max(0,target), behavior:'smooth' });
+  }
+}
+
+// timers
+function toggleTimer(i){
+  const btn = document.querySelector(`.timerbtn[data-step="${i}"]`);
+  const bar = document.getElementById('bar-'+i);
+  const stepEl = document.getElementById('step-'+i);
+
+  if(timers[i] && timers[i].interval){
+    clearInterval(timers[i].interval);
+    timers[i].interval = null;
+    btn.classList.remove('running');
+    btn.textContent = '▶ ' + formatTime(timers[i].remaining);
+    stepEl.classList.remove('active');
+    return;
+  }
+  Object.keys(timers).forEach(k=>{
+    if(timers[k] && timers[k].interval){
+      clearInterval(timers[k].interval); timers[k].interval=null;
+      document.querySelector(`.timerbtn[data-step="${k}"]`)?.classList.remove('running');
+      document.getElementById('step-'+k)?.classList.remove('active');
+    }
+  });
+
+  if(!timers[i]) timers[i] = { remaining: 600, interval: null };
+  if(timers[i].remaining <= 0) timers[i].remaining = 600;
+
+  stepEl.classList.add('active');
+  btn.classList.add('running');
+  timers[i].interval = setInterval(()=>{
+    timers[i].remaining--;
+    bar.style.width = (100 - (timers[i].remaining/600*100)) + '%';
+    btn.textContent = '⏸ ' + formatTime(timers[i].remaining);
+    if(timers[i].remaining <= 0){
+      clearInterval(timers[i].interval);
+      timers[i].interval = null;
+      btn.classList.remove('running');
+      stepEl.classList.remove('active');
+      btn.textContent = '▶ 10:00';
+      timers[i].remaining = 600;
+      bar.style.width = '0%';
+      setStepChecked(i, true);
+    }
+  }, 1000);
+}
+function formatTime(sec){
+  const m = Math.floor(sec/60), s = sec%60;
+  return String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+}
+
+function setStepChecked(i, val){
+  const ds = getDayState(state.currentDay);
+  ds.steps[i] = val;
+  saveState();
+  render();
+}
+
+// events
+document.addEventListener('click', (e)=>{
+  const tb = e.target.closest('.timerbtn');
+  if(tb){ toggleTimer(Number(tb.dataset.step)); return; }
+  const cb = e.target.closest('.checkbox');
+  if(cb){ const i = Number(cb.dataset.step); setStepChecked(i, !getDayState(state.currentDay).steps[i]); return; }
+});
+
+document.getElementById('prevBtn').addEventListener('click', ()=>{
+  if(state.currentDay>1){ state.currentDay--; saveState(); render(); scrollToTop(); }
+});
+document.getElementById('nextBtn').addEventListener('click', ()=>{
+  if(state.currentDay<30){ state.currentDay++; saveState(); render(); scrollToTop(); }
+});
+function scrollToTop(){
+  window.scrollTo({ top:0, behavior: 'auto' });
+}
+
+document.getElementById('listenYes').addEventListener('click', ()=>{
+  const ds = getDayState(state.currentDay);
+  ds.listening = ds.listening === 'yes' ? null : 'yes';
+  saveState(); render();
+});
+document.getElementById('listenNo').addEventListener('click', ()=>{
+  const ds = getDayState(state.currentDay);
+  ds.listening = ds.listening === 'no' ? null : 'no';
+  saveState(); render();
+});
+
+document.getElementById('fillerInput').addEventListener('change', (e)=>{
+  const ds = getDayState(state.currentDay);
+  const v = e.target.value === '' ? null : Math.max(0, parseInt(e.target.value,10));
+  ds.filler = isNaN(v) ? null : v;
+  saveState(); renderSparkline(state.currentDay);
+});
+
+document.getElementById('openRef').addEventListener('click', ()=> document.getElementById('modalBack').classList.add('open'));
+document.getElementById('closeRef').addEventListener('click', ()=> document.getElementById('modalBack').classList.remove('open'));
+document.getElementById('modalBack').addEventListener('click', (e)=>{ if(e.target.id==='modalBack') e.currentTarget.classList.remove('open'); });
+
+loadState();
+</script>
+</body>
+</html>
